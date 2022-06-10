@@ -1,9 +1,8 @@
-import { Layout, Menu } from 'antd';
 import { useRouter } from 'next/router'
 import { getAllFiles } from '../lib/mdx';
 import { MDXLayoutRenderer } from '../components/MDXComponents'
 
-const {  Sider, Content } = Layout;
+import Layout from '../components/Layout'
 
 export async function getStaticPaths() {
   const datas = await getAllFiles();
@@ -24,24 +23,10 @@ export async function getStaticProps(context) {
 }
 
 export default function Com({ com, item, datas }) {
-  const  items = datas.map(v => ({label: v.frontmatter.name, key: v.frontmatter.name}))
+  const  items = datas.map(v => v.frontmatter.name)
   const router = useRouter();
-  const onClick = ({key}) => {
-    const source = datas.find(v => v.frontmatter.name === key)
+  const onClick = (key) => {
     router.push(key)
   }
-  return (
-    <Layout>
-      <Sider>
-        <Menu items={items} onClick={onClick} defaultSelectedKeys={[com]} />
-      </Sider>
-      <Layout>
-        <Content>
-          <MDXLayoutRenderer
-            mdxSource={item.mdxSource}
-          />
-        </Content>
-      </Layout>
-    </Layout>
-  )
+  return <Layout items={items} curItem={com} onClick={onClick} content={<MDXLayoutRenderer mdxSource={item.mdxSource} />} />
 }
