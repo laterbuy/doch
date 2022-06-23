@@ -1,12 +1,15 @@
 {
   "name": "doch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "bin": {
+    "doch": "./bin/cli.js"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
