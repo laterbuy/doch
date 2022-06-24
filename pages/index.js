@@ -1,10 +1,13 @@
-import { Layout, Menu } from 'antd';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import { getAllFiles } from '../lib/mdx';
-import { MDXLayoutRenderer } from '../components/MDXComponents'
+import { MDXLayoutRenderer } from '../components/MDXComponents';
+import dynamic from 'next/dynamic';
 
-const {  Sider, Content } = Layout;
+const Layout = dynamic(() => import("../components/Layout"), {
+  ssr: false,
+});
+
 
 export async function getStaticProps() {
   const datas = await getAllFiles();
@@ -13,30 +16,19 @@ export async function getStaticProps() {
 
 export default function Home({ datas }) {
   const [source, setSource] = useState(datas[0].mdxSource);
-  const  items = datas.map(v => ({label: v.frontmatter.name, key: v.frontmatter.name}))
+  const items = datas.map(v => ({ label: v.frontmatter.name, key: v.frontmatter.name }))
   const router = useRouter();
   const defaultSelectedKey = datas[0].frontmatter.name;
   useEffect(() => {
     router.push(defaultSelectedKey)
   }, [])
 
-  const onClick = ({key}) => {
+  const onClick = ({ key }) => {
     const source = datas.find(v => v.frontmatter.name === key)
     setSource(source.mdxSource);
     router.push(key)
   }
   return (
-    <Layout>
-      <Sider>
-        <Menu items={items} onClick={onClick} defaultSelectedKeys={[defaultSelectedKey]} />
-      </Sider>
-      <Layout>
-        <Content>
-          <MDXLayoutRenderer
-            mdxSource={source}
-          />
-        </Content>
-      </Layout>
-    </Layout>
+    <Layout items={items} curItem={defaultSelectedKey} onClick={onClick} content={<MDXLayoutRenderer mdxSource={source} />} />
   )
 }

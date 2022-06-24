@@ -90,9 +90,9 @@ export default function PersistentDrawerLeft({items, curItem, onClick, content})
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            {/* 标题待定 */}
           </Typography>
-        </Toolbar>
+        </Toolbar> 
       </AppBar>
       <Drawer
         sx={{

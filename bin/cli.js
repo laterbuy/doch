@@ -22,6 +22,18 @@ const run = (argv) => {
       stdio: 'inherit',
       shell: process.platform === 'win32'
     });
+  } else if (argv[2] === 'build') {
+    process.chdir(`${process.cwd()}/.doch/`);
+    execSync(`npm run build`, {
+      stdio: 'inherit',
+      shell: process.platform === 'win32'
+    });
+  } else if (argv[2] === 'start') {
+    process.chdir(`${process.cwd()}/.doch/`);
+    execSync(`npm run start`, {
+      stdio: 'inherit',
+      shell: process.platform === 'win32'
+    });
   } else {
     console.log(`unsupport ${argv[2]}`);
   }

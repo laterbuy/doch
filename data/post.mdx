@@ -4,7 +4,28 @@ name: 'post'
 
 A sample post with markdown1111111.
 
-import { Button } from 'antd';
 import React from 'react';
 
-<Button type="primary">Primary Button</Button>
+<Planet>
+  <button >Primary Button</button>
+</Planet>
+
+
+
+```js
+export async function getAllFiles() {
+  const filesList = [];
+  const dir = path.join(root, `data`);
+  readFileList(dir,filesList);
+
+  const result = []
+  for (let i = 0; i< filesList.length; i++) {
+    if (filesList[i].endsWith('.mdx')) {
+      result.push(await getFileBySlug(filesList[i]));
+    }
+  }
+
+  return result;
+
+}
+```

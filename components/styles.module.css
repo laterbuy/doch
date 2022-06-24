@@ -1,0 +1,43 @@
+.cumstom{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.icons{
+  display: flex;
+  justify-content: flex-end;
+  /* transform: translateY(100%); */
+}
+
+.icons > span{
+  padding: 6px;
+  background-color: #ccc;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.icons > span > svg{
+  width: 14px;
+  height: 14px;
+}
+
+.open{
+  height: 100%;
+}
+
+.close{
+  height: 0;
+}
+
+.cumstomCom{
+  padding: 20px;
+}
+
+.cumstom :global(.prism-code){
+  margin: 0;
+  border-top: 1px solid #ccc;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
