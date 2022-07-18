@@ -15,11 +15,16 @@ export async function getStaticProps() {
 }
 
 export default function Home({ datas }) {
-  const [source, setSource] = useState(datas[0].mdxSource);
+  const [source, setSource] = useState();
   const items = datas.map(v => ({ label: v.frontmatter.name, key: v.frontmatter.name }))
   const router = useRouter();
-  const defaultSelectedKey = datas[0].frontmatter.name;
+
   useEffect(() => {
+    if (datas.length === 0) {
+      return
+    }
+    setSource(datas[0].mdxSource)
+    const defaultSelectedKey = datas[0].frontmatter.name;
     router.push(defaultSelectedKey)
   }, [])
 
@@ -29,6 +34,10 @@ export default function Home({ datas }) {
     router.push(key)
   }
   return (
-    <Layout items={items} curItem={defaultSelectedKey} onClick={onClick} content={<MDXLayoutRenderer mdxSource={source} />} />
+    <>
+      {datas.length === 0 && '没有找到mdx文件'}
+      {datas.length > 0 && <Layout items={items} curItem={datas[0].frontmatter.name} onClick={onClick} content={<MDXLayoutRenderer mdxSource={source} />} />}
+    </>
+
   )
 }
